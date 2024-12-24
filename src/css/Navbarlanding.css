@@ -1,0 +1,76 @@
+/* Updated Menu Content */
+.menu-content {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 100%;
+    padding: 2rem;
+    transform: translateX(-100%);
+    z-index: 20;
+    animation: slideMenuIn 1s 0.1s forwards;
+  }
+  
+  .menu-content.slide-out {
+    animation: slideMenuOut 0.5s forwards;
+  }
+  
+  .black-shade {
+    background: rgb(119, 118, 118);
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    animation: slideBlackShadeIn 0.5s forwards;
+  }
+  
+  .black-shade.slide-out {
+    animation: slideBlackShadeOut 2s forwards;
+  }
+  
+  /* Animations for Opening */
+  @keyframes slideBlackShadeIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+  
+  @keyframes slideMenuIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+  
+  /* Animations for Closing */
+  @keyframes slideBlackShadeOut {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes slideMenuOut {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+
+  .l{
+    background-color: #6d3c21c7;
+  }
