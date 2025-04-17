@@ -33,34 +33,39 @@ const BuildersList = () => {
     <div className="flex flex-col min-h-screen">
       {/* Builders Listing Section */}
       <div className="w-full bg-white py-8 px-4 md:px-8">
+        {/* Note */}
+        <div className="text-center mb-6 text-gray-700 font-bold">
+          Join us with Ducktail once you choose your Builder to get support access from Ducktail.
+        </div>
+
         {/* Filter and Search Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           {/* State Dropdown */}
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700 mb-2">
+          <div className="flex flex-col max-w-[200px]">
+            <label className="text-sm font-semibold text-gray-700 mb-1">
               State
             </label>
-            <div className="relative bg-gradient-to-br from-white to-gray-100 p-2 rounded-xl shadow-md">
+            <div className="relative bg-gradient-to-br from-white to-gray-100 p-1 rounded-lg shadow-sm h-9">
               <select
-                className="w-full p-3 bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none"
+                className="w-full h-full bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none text-xs px-2"
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value)}
               >
-                <option value="">Select State</option>
+                <option value="" className="py-2">Select State</option>
                 {states.map((state) => (
                   <option
                     key={state}
                     value={state}
-                    className="bg-white text-gray-900 p-2 hover:bg-blue-100"
+                    className="bg-white text-gray-900 py-2 px-2"
                   >
                     {state}
                   </option>
                 ))}
               </select>
               {/* Custom Dropdown Arrow */}
-              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none">
+              <div className="absolute top-1/2 right-2 transform -translate-y-1/2 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-600"
+                  className="w-3 h-3 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -77,8 +82,8 @@ const BuildersList = () => {
           </div>
 
           {/* District Dropdown */}
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700 mb-2">
+          <div className="flex flex-col max-w-[200px]">
+            <label className="text-sm font-semibold text-gray-700 mb-1">
               District
             </label>
             <div
@@ -86,29 +91,29 @@ const BuildersList = () => {
                 selectedState
                   ? "from-white to-gray-100"
                   : "from-gray-200 to-gray-300"
-              } p-2 rounded-xl shadow-md`}
+              } p-1 rounded-lg shadow-sm h-9`}
             >
               <select
-                className="w-full p-3 bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none"
+                className="w-full h-full bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none text-xs px-2"
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
                 disabled={!selectedState}
               >
-                <option value="">Select District</option>
+                <option value="" className="py-2">Select District</option>
                 {districts.map((district) => (
                   <option
                     key={district}
                     value={district}
-                    className="bg-white text-gray-900 p-2 hover:bg-blue-100"
+                    className="bg-white text-gray-900 py-2 px-2"
                   >
                     {district}
                   </option>
                 ))}
               </select>
               {/* Custom Dropdown Arrow */}
-              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none">
+              <div className="absolute top-1/2 right-2 transform -translate-y-1/2 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-600"
+                  className="w-3 h-3 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -125,8 +130,8 @@ const BuildersList = () => {
           </div>
 
           {/* Taluk Dropdown */}
-          <div className="flex flex-col">
-            <label className="text-sm font-semibold text-gray-700 mb-2">
+          <div className="flex flex-col max-w-[200px]">
+            <label className="text-sm font-semibold text-gray-700 mb-1">
               Taluk
             </label>
             <div
@@ -134,29 +139,29 @@ const BuildersList = () => {
                 selectedDistrict
                   ? "from-white to-gray-100"
                   : "from-gray-200 to-gray-300"
-              } p-2 rounded-xl shadow-md`}
+              } p-1 rounded-lg shadow-sm h-9`}
             >
               <select
-                className="w-full p-3 bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none"
+                className="w-full h-full bg-transparent border-none rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 cursor-pointer appearance-none text-xs px-2"
                 value={selectedTaluk}
                 onChange={(e) => setSelectedTaluk(e.target.value)}
                 disabled={!selectedDistrict}
               >
-                <option value="">Select Taluk</option>
+                <option value="" className="py-2">Select Taluk</option>
                 {taluks.map((taluk) => (
                   <option
                     key={taluk}
                     value={taluk}
-                    className="bg-white text-gray-900 p-2 hover:bg-blue-100"
+                    className="bg-white text-gray-900 py-2 px-2"
                   >
                     {taluk}
                   </option>
                 ))}
               </select>
               {/* Custom Dropdown Arrow */}
-              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none">
+              <div className="absolute top-1/2 right-2 transform -translate-y-1/2 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-600"
+                  className="w-3 h-3 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"

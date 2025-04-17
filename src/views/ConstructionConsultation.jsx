@@ -23,8 +23,8 @@ const ConstructionConsultation = () => {
           {/* Title Section */}
           <div className="text-white flex-1 px-6">
             <h1 className="text-4xl md:text-5xl font-bold mb-5">
-              <span className="text-yellow-400"> </span>
-              Construction Consultation  
+              <span className="text-yellow-400"> Construction  </span>
+             Consultation  
             </h1>
             <p className="text-lg md:text-xl text-gray-200 max-w-xl">
             If you’re aiming for quality but not ready to use Ducktail-verified companies, our expert
@@ -51,7 +51,7 @@ dream into reality.
               </select>
               <textarea placeholder="Your Query" rows="2" className="col-span-2 w-full p-2 h-20 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
               <button className="col-span-2 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors">
-                Submit
+                Consultation Request
               </button>
             </div>
           </div>

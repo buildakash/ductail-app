@@ -34,8 +34,6 @@ const CompletedCard = () => {
 
   if (error) {
     return <p className="text-center text-red-500">{error}</p>;
-
-    
   }
 
   if (isLoading) {
@@ -52,17 +50,17 @@ const CompletedCard = () => {
         <div
           key={projectIndex}
           className={`flex flex-col lg:flex-row gap-6 mx-auto transition-all duration-300 w-full ${
-            openDocuments[project.id] ? "lg:max-w-6xl" : "lg:max-w-4xl"
+            openDocuments[project.id] ? "lg:max-w-6xl" : "lg:max-w-5xl"
           }`}
         >
           {/* Left Section - Project Details */}
-          <div className="bg-white rounded-3xl p-6 relative lg:w-2/5 shadow-lg overflow-hidden">
+          <div className="bg-white rounded-3xl p-6 relative lg:w-full md:w-full sm:w-full max-w-md shadow-lg overflow-hidden h-80">
             {/* Curved Edge Decoration */}
-            <div className="absolute right-6 top-1/2 -translate-y-10 h-20 w-16 bg-[rgb(224_224_224)] -mr-6 rounded-l-full transition-all duration-300" />
+            <div className="absolute right-0 top-1/2 -translate-y-10 h-20 w-20 bg-gray-200 -mr-0 rounded-l-full transition-all duration-300" />
 
             {/* Circular Navigation Button */}
             <button
-              className="absolute right-5 top-1/2 -translate-y-1/2 -mr-4 h-12 w-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 mr-3 h-12 w-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
               onClick={() => toggleDocuments(project.id)}
             >
               <span className="text-lg font-bold text-gray-600">
@@ -70,53 +68,54 @@ const CompletedCard = () => {
               </span>
             </button>
 
-            {/* Centered Title with Line */}
             {/* Centered Title with Icons in Right Corner */}
-            <div className="relative flex items-center justify-center mb-4 pb-2 border-b border-black">
+            <div className="relative flex items-center justify-center mb-6 pb-2 border-b border-black">
               <h2 className="text-2xl font-bold text-center flex-1">
-                {projects[0]?.builder_company || "Unknown Builder"}
+                {project?.builder_company || "Company Start"}
               </h2>
               <div className="absolute right-0 flex gap-2">
                 {/* Chat Icon */}
-                <button className="h-8 w-8 flex items-center justify-center rounded-full border border-gray-400 shadow-md">
+                <button className="h-8 w-8 flex items-center justify-center rounded-full border border-gray-400 shadow-md"
+                  onClick={() => handlenavigate("Chat", "/chatbox")}>
                   <MessageCircle className="w-4 h-4 text-gray-700" />
                 </button>
                 
                 {/* Payment Icon */}
-                <button className="h-8 w-8 flex items-center justify-center rounded-full border border-gray-400 shadow-md">
+                <button className="h-8 w-8 flex items-center justify-center rounded-full border border-gray-400 shadow-md"
+                  onClick={() => handlenavigate("Payment", "/paymenthistory")}>
                   <IndianRupee className="w-4 h-4 text-gray-700" />
                 </button>
               </div>
             </div>
 
             {/* Project Status */}
-            <div className="flex items-center gap-4 mb-4">
-              <FileText className="w-6 h-6 text-gray-600" />
+            <div className="flex items-center gap-6 mb-6">
+              <FileText className="w-6 h-6 text-gray-600 shrink-0" />
               <div>
                 <div className="font-semibold">Project Status</div>
-                <div className="text-gray-600">{projects[0]?.status || "N/A"}</div>
+                <div className="text-gray-600">{project?.status || "completed"}</div>
               </div>
             </div>
 
             {/* Project Starting Date */}
-            <div className="flex items-center gap-4 mb-4">
-              <CalendarDays className="w-6 h-6 text-gray-600" />
+            <div className="flex items-center gap-6 mb-6">
+              <CalendarDays className="w-6 h-6 text-gray-600 shrink-0" />
               <div>
                 <div className="font-semibold">Project Starting Date</div>
                 <div className="text-gray-600">
-                  {projects[0]?.starting_date 
-                    ? new Date(projects[0].starting_date).toLocaleDateString()
-                    : "N/A"}
+                  {project?.starting_date 
+                    ? new Date(project.starting_date).toLocaleDateString()
+                    : "3/25/2025"}
                 </div>
               </div>
             </div>
 
             {/* Project Location */}
-            <div className="flex items-center gap-4">
-              <MapPin className="w-6 h-6 text-gray-600" />
+            <div className="flex items-center gap-6">
+              <MapPin className="w-6 h-6 text-gray-600 shrink-0" />
               <div>
                 <div className="font-semibold">Project Location</div>
-                <div className="text-gray-600">{projects[0]?.project_location || "N/A"}</div>
+                <div className="text-gray-600">{project?.project_location || "d"}</div>
               </div>
             </div>
           </div>
@@ -141,10 +140,10 @@ const CompletedCard = () => {
                       {["I", "II", "III", "IV"][index]}
                     </span>
                     <span className="w-1/2">{doc}</span>
-                    <a href=" " className="text-blue-500">
+                    <a href="#" className="text-blue-500">
                       View
                     </a>
-                    <a href=" " className="text-blue-500">
+                    <a href="#" className="text-blue-500">
                       Download
                     </a>
                   </div>

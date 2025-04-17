@@ -12,6 +12,7 @@ const CustomerSupport = () => {
     state: "",
     query: "",
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,15 +35,75 @@ const CustomerSupport = () => {
     "Mumbai": ["Andheri", "Borivali", "Kurla", "Bandra", "Dadar"]
   };
 
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+
+        }
+        break;
+      case "email":
+        if (!/^[a-z0-9]+@gmail\.com$/.test(value)) {
+        }
+        break;
+      case "phone":
+        if (!/^\d{10}$/.test(value)) {
+        }
+        break;
+      case "postcode":
+        if (!/^\d{6}$/.test(value)) {
+        }
+        break;
+      case "state":
+      case "district":
+      case "taluk":
+        if (!value) {
+          error = "This field is required";
+        }
+        break;
+      case "query":
+        if (!value.trim()) {
+          error = "Query is required";
+        }
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    let newValue = value;
 
-    if (name === "state") {
-      setFormData(prev => ({ ...prev, district: "", taluk: "" }));
-    } else if (name === "district") {
-      setFormData(prev => ({ ...prev, taluk: "" }));
+    // Apply input restrictions
+    if (name === "name") {
+      newValue = value.replace(/[^A-Za-z\s]/g, '');
+    } else if (name === "phone" || name === "postcode") {
+      newValue = value.replace(/\D/g, '');
+      if (name === "phone" && newValue.length > 10) {
+        newValue = newValue.slice(0, 10);
+      }
+      if (name === "postcode" && newValue.length > 6) {
+        newValue = newValue.slice(0, 6);
+      }
+    } else if (name === "email") {
+      newValue = value.toLowerCase();
     }
+
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: newValue,
+      ...(name === "state" ? { district: "", taluk: "" } : {}),
+      ...(name === "district" ? { taluk: "" } : {})
+    }));
+
+    const error = validateField(name, newValue);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const handleBack = () => {
@@ -55,6 +116,24 @@ const CustomerSupport = () => {
 
   const getAvailableTaluks = () => {
     return formData.district ? taluks[formData.district] || [] : [];
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Validate all fields
+    const newErrors = {};
+    Object.keys(formData).forEach(key => {
+      const error = validateField(key, formData[key]);
+      if (error) newErrors[key] = error;
+    });
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      // Form is valid, proceed with submission
+      console.log("Form submitted:", formData);
+    }
   };
 
   return (
@@ -115,34 +194,121 @@ const CustomerSupport = () => {
                 <h2 className="text-1xl font-bold mb-4 text-center">
                   {userType === "builder" ? "Builder Form" : "Customer Form"}
                 </h2>
-                <form className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="text" name="name" placeholder="Name *" className="border rounded-xl p-2 w-full" value={formData.name} onChange={handleChange} required />
-                  <input type="email" name="email" placeholder="Email *" className="border rounded-xl p-2 w-full" value={formData.email} onChange={handleChange} required />
-                  <input type="tel" name="phone" placeholder="Phone Number *" className="border rounded-xl p-2 w-full" value={formData.phone} onChange={handleChange} required />
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      name="name" 
+                      placeholder="Name *" 
+                      className={`border rounded-xl p-2 w-full ${errors.name ? 'border-red-500' : ''}`}
+                      value={formData.name} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    {errors.name && <span className="text-red-500 text-xs absolute -bottom-5">{errors.name}</span>}
+                  </div>
+                  
+                  <div className="relative">
+                    <input 
+                      type="email" 
+                      name="email" 
+                      placeholder="Email *" 
+                      className={`border rounded-xl p-2 w-full ${errors.email ? 'border-red-500' : ''}`}
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    {errors.email && <span className="text-red-500 text-xs absolute -bottom-5">{errors.email}</span>}
+                  </div>
 
-                  <select name="state" className="border rounded-xl p-2 w-full" value={formData.state} onChange={handleChange} required>
-                    <option value="">State *</option>
-                    {states.map(state => (
-                      <option key={state} value={state}>{state}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <input 
+                      type="tel" 
+                      name="phone" 
+                      placeholder="Phone Number *" 
+                      className={`border rounded-xl p-2 w-full ${errors.phone ? 'border-red-500' : ''}`}
+                      value={formData.phone} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    {errors.phone && <span className="text-red-500 text-xs absolute -bottom-5">{errors.phone}</span>}
+                  </div>
 
-                  <select name="district" className="border rounded-xl p-2 w-full" value={formData.district} onChange={handleChange} required disabled={!formData.state}>
-                    <option value="">District *</option>
-                    {getAvailableDistricts().map(district => (
-                      <option key={district} value={district}>{district}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select 
+                      name="state" 
+                      className={`border rounded-xl p-2 w-full ${errors.state ? 'border-red-500' : ''}`}
+                      value={formData.state} 
+                      onChange={handleChange} 
+                      required
+                    >
+                      <option value="">State *</option>
+                      {states.map(state => (
+                        <option key={state} value={state}>{state}</option>
+                      ))}
+                    </select>
+                    {errors.state && <span className="text-red-500 text-xs absolute -bottom-5">{errors.state}</span>}
+                  </div>
 
-                  <select name="taluk" className="border rounded-xl p-2 w-full" value={formData.taluk} onChange={handleChange} required disabled={!formData.district}>
-                    <option value="">Taluk *</option>
-                    {getAvailableTaluks().map(taluk => (
-                      <option key={taluk} value={taluk}>{taluk}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select 
+                      name="district" 
+                      className={`border rounded-xl p-2 w-full ${errors.district ? 'border-red-500' : ''}`}
+                      value={formData.district} 
+                      onChange={handleChange} 
+                      required 
+                      disabled={!formData.state}
+                    >
+                      <option value="">District *</option>
+                      {getAvailableDistricts().map(district => (
+                        <option key={district} value={district}>{district}</option>
+                      ))}
+                    </select>
+                    {errors.district && <span className="text-red-500 text-xs absolute -bottom-5">{errors.district}</span>}
+                  </div>
 
-                  <input type="text" name="postcode" placeholder="Postcode *" className="border rounded-xl p-2 w-full" value={formData.postcode} onChange={handleChange} required />
-                  <textarea name="query" placeholder="Your Query *" className="border rounded-xl p-2 w-full col-span-1 sm:col-span-2" rows="4" value={formData.query} onChange={handleChange} required></textarea>
+                  <div className="relative">
+                    <select 
+                      name="taluk" 
+                      className={`border rounded-xl p-2 w-full ${errors.taluk ? 'border-red-500' : ''}`}
+                      value={formData.taluk} 
+                      onChange={handleChange} 
+                      required 
+                      disabled={!formData.district}
+                    >
+                      <option value="">Taluk *</option>
+                      {getAvailableTaluks().map(taluk => (
+                        <option key={taluk} value={taluk}>{taluk}</option>
+                      ))}
+                    </select>
+                    {errors.taluk && <span className="text-red-500 text-xs absolute -bottom-5">{errors.taluk}</span>}
+                  </div>
+
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      name="postcode" 
+                      placeholder="Postcode *" 
+                      className={`border rounded-xl p-2 w-full ${errors.postcode ? 'border-red-500' : ''}`}
+                      value={formData.postcode} 
+                      onChange={handleChange} 
+                      required 
+                    />
+                    {errors.postcode && <span className="text-red-500 text-xs absolute -bottom-5">{errors.postcode}</span>}
+                  </div>
+
+                  <div className="relative col-span-1 sm:col-span-2">
+                    <textarea 
+                      name="query" 
+                      placeholder="Your Query *" 
+                      className={`border rounded-xl p-2 w-full ${errors.query ? 'border-red-500' : ''}`}
+                      rows="4" 
+                      value={formData.query} 
+                      onChange={handleChange} 
+                      required
+                    ></textarea>
+                    {errors.query && <span className="text-red-500 text-xs absolute -bottom-5">{errors.query}</span>}
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4 col-span-1 sm:col-span-2">
                     <button

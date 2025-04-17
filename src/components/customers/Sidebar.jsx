@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { ToggleLeftIcon } from "lucide-react";
 import "../../css/Sidebar.css";
@@ -69,11 +68,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       style={{ backgroundColor: "#1F1E1E", borderRadius: "35px" }}
     >
       <div className="flex items-center justify-between h-16 px-4 py-10 mb-5">
-        {/* Logo */}
+        {/* Logo with click handler */}
         <img
           src="/assets/Transparent background.png"
           alt="Ducktail Logo"
-          className={`h-16 ${isOpen ? "block" : "hidden"} lg:block`}
+          className={`h-16 ${isOpen ? "block" : "hidden"} lg:block cursor-pointer`}
+          onClick={() => navigate("/")}
         />
         <button
           onClick={() => setIsOpen(!isOpen)}

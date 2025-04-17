@@ -2,9 +2,48 @@ import React, { useState, useEffect } from 'react';
 
 const HomeLoan = () => {
   const [showMore, setShowMore] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    state: '',
+    district: '',
+    taluk: '',
+    query: ''
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let newValue = value;
+
+    // Apply input restrictions
+    if (name === "name") {
+      newValue = value.replace(/[^A-Za-z\s]/g, '');
+    } else if (name === "phone") {
+      newValue = value.replace(/\D/g, '');
+      if (newValue.length > 10) {
+        newValue = newValue.slice(0, 10);
+      }
+    } else if (name === "email") {
+      newValue = value.toLowerCase();
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: newValue,
+      ...(name === "state" ? { district: "", taluk: "" } : {}),
+      ...(name === "district" ? { taluk: "" } : {})
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission
+  };
 
   return (
     <div className="w-full ">
@@ -23,33 +62,80 @@ const HomeLoan = () => {
         <div className="text-white flex-1 px-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-5">
             <span className="text-yellow-400">Smart Loans for </span>
-            Smart House
+            Smart Homes
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-xl">
-            Apply effortlessly with Ducktail – Click, Apply, and Move In to your dream home today!
+            Apply effortlessly with Ducktail – Click, Apply, and Move Into your dream home today!
           </p>
+          <p className="text-yellow-400 text-lg mt-2">Loan start at 8.3%</p>
         </div>
 
         {/* Form Section */}
         <div className="bg-white rounded-lg p-6 shadow-lgw-full max-w-lg">
-          <div className="grid grid-cols-2 gap-4">
-            <input type="text" placeholder="Name" className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <input type="email" placeholder="Email" className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <input type="tel" placeholder="Phone Number" className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <select className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Select State</option>
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            <input 
+              type="text" 
+              name="name"
+              placeholder="Name" 
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            />
+            <input 
+              type="email" 
+              name="email"
+              placeholder="Email" 
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            />
+            <input 
+              type="tel" 
+              name="phone"
+              placeholder="Phone Number" 
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            />
+            <select 
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select State</option>
             </select>
-            <select className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Select District</option>
+            <select 
+              name="district"
+              value={formData.district}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select District</option>
             </select>
-            <select className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Select Taluk</option>
+            <select 
+              name="taluk"
+              value={formData.taluk}
+              onChange={handleChange}
+              className="w-full p-2 h-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Taluk</option>
             </select>
-            <textarea placeholder="Your Query" rows="2" className="col-span-2 w-full p-2 h-20 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
-            <button className="col-span-2 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors">
-              Submit
+            <textarea 
+              name="query"
+              placeholder="Your Query" 
+              rows="2" 
+              value={formData.query}
+              onChange={handleChange}
+              className="col-span-2 w-full p-2 h-20 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            ></textarea>
+            <button 
+              type="submit"
+              className="col-span-2 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+            >
+              Service Request
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

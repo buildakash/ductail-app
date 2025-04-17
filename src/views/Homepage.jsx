@@ -158,7 +158,7 @@ const Homepage = () => {
             >
               FIND BUILDERS
             </button>
-            <button className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center relative z-10 shadow-lg">
+            {/* <button className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center relative z-10 shadow-lg">
               <div className="absolute inset-0 rounded-full bg-black animate-borderExplode"></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ const Homepage = () => {
                   d="M14.752 11.168l-6.4-4.267A1 1 0 007 7.73v8.538a1 1 0 001.352.936l6.4-3.2a1 1 0 000-1.736z"
                 />
               </svg>
-            </button>
+            </button> */}
           </div>
         </div>
         {isOpen && (
@@ -344,7 +344,7 @@ const Homepage = () => {
 
 <section id="services" className="py-6">
   <div className="container max-w-6xl mx-auto px-4">
-    <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
+    <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
       DUCKTAIL'S OTHER SERVICES
     </h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-20 py-5">
@@ -368,7 +368,7 @@ const Homepage = () => {
           comingSoon: false,
         },
         {
-          title: "Real Estate",
+          title: "Housing Plots",
           img: "/assets/Untitled-design-36.jpg",
           comingSoon: true,
         },
@@ -385,7 +385,7 @@ const Homepage = () => {
           comingSoon: false,
         },
         {
-          title: "Premium Construction",
+          title: "Commercial Construction",
           img: "/assets/2964.jpg",
           link: "/premiumconstruction",
           comingSoon: false,
@@ -399,7 +399,7 @@ const Homepage = () => {
         <Link to={service.link || "#"} key={index} className="group h-full">
           <div className="bg-white rounded-2xl hover:shadow-lg transition-shadow duration-300 overflow-hidden text-center cursor-pointer border flex flex-col h-full relative">
             {service.comingSoon && (
-              <div className="absolute top-0 left-0 bg-blue-500 text-white px-2 py-1 text-sm z-10 rounded-tl-2xl">
+              <div className="absolute top-0 left-0 bg-blue-500 text-white px-2 py-1 text-xs z-10 rounded-tl-2xl">
                 Coming Soon
               </div>
             )}
@@ -411,7 +411,7 @@ const Homepage = () => {
               />
             </div>
             <div className="p-4 flex-grow flex flex-col items-center justify-center text-center">
-              <h3 className="font-medium text-lg">{service.title}</h3>
+              <h3 className="font-medium text-base">{service.title}</h3>
             </div>
           </div>
         </Link>
@@ -449,19 +449,19 @@ const Homepage = () => {
             className="relative container mx-auto px-6 sm:px-12 lg:px-12"
             style={{ zIndex: 2 }}
           >
-            <div className="flex flex-col lg:flex-row items-center justify-between py-12">
+            <div className="flex flex-col lg:flex-row items-center justify-between py-8">
               {/* Text Content */}
               <div className="text-left max-w-[28rem] lg:max-w-[42rem]">
-                <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-black mb-3">
                   Turn Your Dream Home into Reality with Our Easy Home Loans!
                 </h2>
               </div>
 
               {/* Button */}
-              <div className="mt-6 lg:mt-0">
+              <div className="mt-4 lg:mt-0">
                 <a
                   href=" "
-                  className="inline-block bg-blue-600 text-white font-semibold text-sm sm:text-base py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+                  className="inline-block bg-blue-600 text-white font-semibold text-xs sm:text-sm py-2 px-5 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
                 >
                   APPLY NOW
                 </a>
@@ -474,10 +474,10 @@ const Homepage = () => {
       {/* service 2 */}
       <section className="py-7">
         <div className="container max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">
+          <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
             WHY CHOOSE DUCKTAIL
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {[
               {
                 title: "10 Years Warranty",
@@ -502,7 +502,7 @@ const Homepage = () => {
               {
                 title: "Customer Log-in Dashboard",
                 img: "/assets/Customer-login.png",
-                large: true, // Add a flag for large images
+                large: true,
               },
               {
                 title: "One Stop Solution",
@@ -515,18 +515,21 @@ const Homepage = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-100 rounded-xl shadow-xl md:p-6 p-10 text-center hover:shadow-lg transition-shadow duration-300"
+                className="bg-gray-100 rounded-lg shadow-md md:p-4 p-6 text-center hover:shadow-lg transition-shadow duration-300 relative"
               >
+                {index === 0 && (
+                  <span className="absolute top-2 right-2 text-xs text-black">*T&C apply</span>
+                )}
                 <div className="overflow-hidden">
                   <img
                     src={item.img}
                     alt={item.title}
                     className={`mx-auto mb-1 transform transition-transform duration-300 hover:scale-110 ${
-                      item.large ? "w-32 h-24" : "w-24 h-24"
+                      item.large ? "w-24 h-20" : "w-20 h-20"
                     }`}
                   />
                 </div>
-                <h3 className="text-base font-semibold">{item.title}</h3>
+                <h3 className="text-sm font-semibold">{item.title}</h3>
               </div>
             ))}
           </div>
@@ -560,22 +563,22 @@ const Homepage = () => {
             className="relative container mx-auto px-6 sm:px-12 lg:px-12"
             style={{ zIndex: 2 }}
           >
-            <div className="flex flex-col lg:flex-row items-center justify-between py-16">
+            <div className="flex flex-col lg:flex-row items-center justify-between py-8">
               {/* Text Content */}
-              <div className="text-left max-w-md  lg:max-w-lg">
-                <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">
+              <div className="text-left max-w-md lg:max-w-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-black mb-3">
                   Get into the world of clients
                 </h2>
-                <p className="text-4xl sm:text-2xl font-bold text-gray-800 ">
-                  Register Your Construction Company!
-                </p>
+                <h2 className="text-xl sm:text-2xl font-bold text-black mb-3">
+                  Register Your Construction Company
+                </h2>
               </div>
 
               {/* Button */}
-              <div className="mt-6 lg:mt-0">
+              <div className="mt-4 lg:mt-0">
                 <a
                   href=" "
-                  className="inline-block bg-blue-600 text-white font-semibold text-sm sm:text-base py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+                  className="inline-block bg-blue-600 text-white font-semibold text-xs py-2 px-5 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
                 >
                   APPLY NOW
                 </a>
@@ -672,7 +675,7 @@ const Homepage = () => {
             <div className="flex flex-col  py-16">
               {/* Text Content */}
               <div className="text-left max-w-md  lg:max-w-lg">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">
                   Finding your dream job is now easier with Ducktail!
                 </h2>
               </div>
@@ -681,7 +684,7 @@ const Homepage = () => {
               <div className="mt-6 lg:mt-0">
                 <a
                   href=" "
-                  className="inline-block bg-blue-600 text-white font-semibold text-sm sm:text-base py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+                  className="inline-block bg-blue-600 text-white font-semibold text-xs sm:text-sm py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
                 >
                   APPLY NOW
                 </a>
@@ -693,92 +696,93 @@ const Homepage = () => {
 
       {/* testimonal */}
       <section className="py-0">
-        <div className="container max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-blue-700 mb-8">
-            OUR TESTIMONIALS
-          </h2>
-          <Swiper
-            modules={[Autoplay, Pagination]}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 20000, disableOnInteraction: false }}
-            loop
-            breakpoints={{
-              640: { slidesPerView: 2 }, // Show 1 slide for devices <640px
-              768: { slidesPerView: 1 }, // Show 2 slides for devices ≥768px
-            }}
-            className="w-full md:h-[404px]"
-          >
-            {Array.from(
-              { length: Math.ceil(testimonials.length / 2) },
-              (_, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex flex-wrap md:flex-nowrap justify-around items-start gap-8">
-                    {/* First Testimonial (Left Column) */}
-                    <div className="w-full md:w-1/2 md:h-[372px] bg-gray-100 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
-                      <p className="text-gray-700 italic mb-4 text-center">
-                        {testimonials[index * 2]?.text}
-                      </p>
-                      <div className="flex justify-center mb-2">
-                        {Array.from(
-                          { length: testimonials[index * 2]?.rating || 0 },
-                          (_, i) => (
-                            <svg
-                              key={i}
-                              className="w-5 h-5 text-orange-500"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M10 15l-5.09 3.26 1.93-6.36-5.09-3.74h6.3L10 2.5 12.95 8.16h6.3l-5.09 3.74 1.93 6.36z" />
-                            </svg>
-                          )
-                        )}
-                      </div>
-                      <h4 className="text-lg font-bold text-gray-800 text-center">
-                        {testimonials[index * 2]?.name}
-                      </h4>
-                      <p className="text-sm text-gray-600 text-center">
-                        {testimonials[index * 2]?.role}
-                      </p>
-                    </div>
+  <div className="container max-w-5xl mx-auto text-center">
+    <h2 className="text-3xl font-bold text-blue-700 mb-8">
+      OUR TESTIMONIALS
+    </h2>
+    <Swiper
+      modules={[Autoplay, Pagination]}
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 20000, disableOnInteraction: false }}
+      loop
+      breakpoints={{
+        640: { slidesPerView: 2 },
+        768: { slidesPerView: 1 },
+      }}
+      className="w-full md:h-[340px]"
+    >
+      {Array.from(
+        { length: Math.ceil(testimonials.length / 2) },
+        (_, index) => (
+          <SwiperSlide key={index}>
+            <div className="flex flex-wrap md:flex-nowrap justify-around items-start gap-6">
+              {/* First Testimonial */}
+              <div className="w-full md:w-1/2 md:h-[300px] bg-gray-100 rounded-lg shadow-lg p-4 flex flex-col items-center justify-center">
+                <p className="text-sm text-gray-700 italic mb-3 text-center">
+                  {testimonials[index * 2]?.text}
+                </p>
+                <div className="flex justify-center mb-2">
+                  {Array.from(
+                    { length: testimonials[index * 2]?.rating || 0 },
+                    (_, i) => (
+                      <svg
+                        key={i}
+                        className="w-5 h-5 text-orange-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M10 15l-5.09 3.26 1.93-6.36-5.09-3.74h6.3L10 2.5 12.95 8.16h6.3l-5.09 3.74 1.93 6.36z" />
+                      </svg>
+                    )
+                  )}
+                </div>
+                <h4 className="text-base font-semibold text-gray-800 text-center">
+                  {testimonials[index * 2]?.name}
+                </h4>
+                <p className="text-xs text-gray-600 text-center">
+                  {testimonials[index * 2]?.role}
+                </p>
+              </div>
 
-                    {/* Second Testimonial (Right Column) */}
-                    {testimonials[index * 2 + 1] && (
-                      <div className="w-full md:w-1/2 md:h-[372px] bg-gray-100 rounded-lg shadow-lg p-6 flex flex-col items-center justify-center">
-                        <p className="text-gray-700 italic mb-4 text-center">
-                          {testimonials[index * 2 + 1]?.text}
-                        </p>
-                        <div className="flex justify-center mb-2">
-                          {Array.from(
-                            {
-                              length: testimonials[index * 2 + 1]?.rating || 0,
-                            },
-                            (_, i) => (
-                              <svg
-                                key={i}
-                                className="w-5 h-5 text-orange-500"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path d="M10 15l-5.09 3.26 1.93-6.36-5.09-3.74h6.3L10 2.5 12.95 8.16h6.3l-5.09 3.74 1.93 6.36z" />
-                              </svg>
-                            )
-                          )}
-                        </div>
-                        <h4 className="text-lg font-bold text-gray-800 text-center">
-                          {testimonials[index * 2 + 1]?.name}
-                        </h4>
-                        <p className="text-sm text-gray-600 text-center">
-                          {testimonials[index * 2 + 1]?.role}
-                        </p>
-                      </div>
+              {/* Second Testimonial */}
+              {testimonials[index * 2 + 1] && (
+                <div className="w-full md:w-1/2 md:h-[300px] bg-gray-100 rounded-lg shadow-lg p-4 flex flex-col items-center justify-center">
+                  <p className="text-sm text-gray-700 italic mb-3 text-center">
+                    {testimonials[index * 2 + 1]?.text}
+                  </p>
+                  <div className="flex justify-center mb-2">
+                    {Array.from(
+                      {
+                        length: testimonials[index * 2 + 1]?.rating || 0,
+                      },
+                      (_, i) => (
+                        <svg
+                          key={i}
+                          className="w-5 h-5 text-orange-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M10 15l-5.09 3.26 1.93-6.36-5.09-3.74h6.3L10 2.5 12.95 8.16h6.3l-5.09 3.74 1.93 6.36z" />
+                        </svg>
+                      )
                     )}
                   </div>
-                </SwiperSlide>
-              )
-            )}
-          </Swiper>
-        </div>
-      </section>
+                  <h4 className="text-base font-semibold text-gray-800 text-center">
+                    {testimonials[index * 2 + 1]?.name}
+                  </h4>
+                  <p className="text-xs text-gray-600 text-center">
+                    {testimonials[index * 2 + 1]?.role}
+                  </p>
+                </div>
+              )}
+            </div>
+          </SwiperSlide>
+        )
+      )}
+    </Swiper>
+  </div>
+</section>
+
     </div>
   );
 };

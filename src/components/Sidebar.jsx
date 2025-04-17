@@ -24,7 +24,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <img
           src="/assets/Transparent background.png"
           alt="Ducktail Logo"
-          className={`h-16 ${isOpen ? "block" : "hidden"} lg:block`}
+          className={`h-16 ${isOpen ? "block" : "hidden"} lg:block cursor-pointer`}
+          onClick={() => navigate("/")} 
         />
         <button
           onClick={() => setIsOpen(!isOpen)}
